@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:h="http://www.w3.org/1999/xhtml" viewBox="0 0 36 36" width="600" height="600">
+  <title>isPointInStroke w/dashes works properly at large scale factors</title>
+  <h:script src="/resources/testharness.js"/>
+  <h:script src="/resources/testharnessreport.js"/>
+  <metadata>
+    <h:link rel="help" href="https://svgwg.org/svg2-draft/types.html#InterfaceSVGGeometryElement"/>
+    <h:link rel="help" href="https://svgwg.org/svg2-draft/types.html#__svg__SVGGeometryElement__isPointInStroke"/>
+  </metadata>
+  <circle id="circle" cx="6" cy="10" r="5" stroke="blue" stroke-width="1" stroke-dasharray="10 21.4159" fill="none"/>
+  <script>
+  <![CDATA[
+    test(function() {
+      let circle = document.getElementById("circle");
+      assert_true(circle.isPointInStroke(circle.getPointAtLength(0)), "hit-test the beginning of the dash");
+      assert_true(circle.isPointInStroke(circle.getPointAtLength(5)), "hit-test the middle of the dash");
+      assert_true(circle.isPointInStroke(circle.getPointAtLength(9.8)), "hit-test the end of the dash");
+      assert_false(circle.isPointInStroke(circle.getPointAtLength(10.2)), "hit-test past the end of the dash");
+    });
+  ]]>
+  </script>
+</svg>
